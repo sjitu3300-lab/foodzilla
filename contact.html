@@ -93,12 +93,12 @@
         <span class="contact-icon">📞</span>
         <h3>Phone & WhatsApp</h3>
         <p>Direct Table Booking, Home Delivery & Order Status</p>
-        <a href="https://wa.me/919876543210" target="_blank">+91 90797 61984</a>
+        <a href="https://wa.me/919079761984" target="_blank">+91 90797 61984</a>
       </div>
       <div class="contact-card">
         <span class="contact-icon">⏰</span>
         <h3>Operational Hours</h3>
-        <p>Monday to Sunday: 11:00 AM – 11:30 PM</p>
+        <p>Monday to Sunday: 11:30 AM – 11:30 PM</p>
         <p style="color: var(--primary); font-size: 0.85rem; margin-top: 0.3rem;">Open 365 Days • Lunch, Evening Snacks & Dinner</p>
       </div>
     </div>
@@ -108,20 +108,32 @@
       <div>
         <h2 class="form-title">Send a Message / Book</h2>
         <p class="form-subtitle">Fill in your requirements below and our manager will respond within minutes.</p>
-        <form onsubmit="event.preventDefault(); alert('Dhanyawad! Foodzilla desk se aapko jaldi confirmation call aayega.');">
-          <div class="form-group"><label>Full Name</label><input type="text" placeholder="Apna naam likhein" required></div>
-          <div class="form-group"><label>Phone / WhatsApp Number</label><input type="tel" placeholder="+91 98765 XXXXX" required></div>
-          <div class="form-group"><label>Inquiry Type</label>
-            <select required>
+        
+        <!-- ================= REAL WORKING RESERVATION FORM ================= -->
+        <form id="bookingForm" onsubmit="sendBooking(event)">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="resName" placeholder="Apna naam likhein" required>
+          </div>
+          <div class="form-group">
+            <label>Phone / WhatsApp Number *</label>
+            <input type="tel" id="resPhone" placeholder="+91 90797 XXXXX" required>
+          </div>
+          <div class="form-group">
+            <label>Inquiry Type *</label>
+            <select id="resType" required>
               <option value="">Select option</option>
-              <option value="table">Dine-In Table Reservation</option>
-              <option value="party">Birthday / Anniversary Party (Hall Booking)</option>
-              <option value="delivery">Home Delivery Inquiry</option>
-              <option value="bulk">Bulk / Corporate Office Order</option>
+              <option value="Dine-In Table Reservation">🍽️ Dine-In Table Reservation</option>
+              <option value="Birthday / Anniversary Party">🎉 Birthday / Anniversary Party (Hall Booking)</option>
+              <option value="Home Delivery Inquiry">🚚 Home Delivery Inquiry</option>
+              <option value="Bulk / Corporate Office Order">📦 Bulk / Corporate Office Order</option>
             </select>
           </div>
-          <div class="form-group"><label>Detailed Message</label><textarea rows="4" placeholder="Guests count, date, time ya specific custom request..."></textarea></div>
-          <button type="submit" class="submit-btn">Submit Reservation / Inquiry</button>
+          <div class="form-group">
+            <label>Detailed Message</label>
+            <textarea id="resMsg" rows="4" placeholder="Guests count, date, time ya specific custom request..."></textarea>
+          </div>
+          <button type="submit" class="submit-btn">📲 Submit &amp; Send to WhatsApp</button>
         </form>
       </div>
 
@@ -179,5 +191,51 @@
   <footer>
     <p>&copy; 2026 Foodzilla Fast Food. All rights reserved.</p>
   </footer>
+
+  <!-- ================= JAVASCRIPT: SEND TO WHATSAPP & GOOGLE SHEET ================= -->
+  <script>
+    function sendBooking(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('resName').value.trim();
+      const phone = document.getElementById('resPhone').value.trim();
+      const type = document.getElementById('resType').value;
+      const msg = document.getElementById('resMsg').value.trim() || "N/A";
+      const myWhatsAppNumber = "919079761984"; // Aapka WhatsApp Number
+
+      // 1. Google Sheet Webhook (Background Save)
+      const sheetWebhookUrl = "https://script.google.com/macros/s/AKfycbw0U7xDsW7xvR4UnEB2AuU9pG7_gFUdHtRyoYDJjYGHLPtygYALhEIFOCXTHMSrzYlKgQ/exec";
+      if (sheetWebhookUrl) {
+        fetch(sheetWebhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: "reservation",
+            name: name,
+            phone: phone,
+            inquiryType: type,
+            message: msg
+          })
+        }).catch(err => console.log('Sheet error:', err));
+      }
+
+      // 2. Direct WhatsApp Message formatting
+      let text = `🦖 *Foodzilla Fast Food — Table / Party Booking Request*\n`;
+      text += `----------------------------------\n`;
+      text += `👤 *Customer Name:* ${name}\n`;
+      text += `📞 *Phone Number:* ${phone}\n`;
+      text += `📌 *Booking Type:* ${type}\n`;
+      text += `💬 *Details / Message:* ${msg}\n`;
+      text += `----------------------------------\n`;
+      text += `👉 *Please confirm my booking request.*`;
+
+      // Opens WhatsApp directly to your number
+      window.open(`https://wa.me/${myWhatsAppNumber}?text=${encodeURIComponent(text)}`, '_blank');
+
+      alert(`🎉 Shukriya ${name}! Aapki booking request submit ho gayi hai aur WhatsApp par message generate ho gaya hai.`);
+      document.getElementById('bookingForm').reset();
+    }
+  </script>
 </body>
 </html>
