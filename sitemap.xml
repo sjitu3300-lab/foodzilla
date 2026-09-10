@@ -1,1 +1,52 @@
-https://www.foodzillaa.in/sitemap.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- 1. Homepage -->
+  <url>
+    <loc>https://www.foodzillaa.in/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- 2. About Us -->
+  <url>
+    <loc>https://www.foodzillaa.in/about.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 3. Contact Us -->
+  <url>
+    <loc>https://www.foodzillaa.in/contact.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 4. Privacy Policy -->
+  <url>
+    <loc>https://www.foodzillaa.in/privacy-policy.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- 5. Terms & Conditions -->
+  <url>
+    <loc>https://www.foodzillaa.in/terms-conditions.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- 6. Disclaimer -->
+  <url>
+    <loc>https://www.foodzillaa.in/disclaimer.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>
