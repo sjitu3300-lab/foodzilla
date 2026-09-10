@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sjitu3300-lab.github.io/Restaurant-/sitemap.xml
+Sitemap: https://www.foodzillaa.in/sitemap.xml
 
