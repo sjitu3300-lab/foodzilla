@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="canonical" href="https://www.foodzillaa.in/" />
+   <!-- ================= 2. AUTOMATIC REDIRECT TO DOMAIN ================= -->
+  <script>
+    if (window.location.hostname.includes('github.io')) {
+      window.location.replace('https://www.foodzillaa.in' + window.location.pathname.replace(/^\/[^/]+/, ''));
+    }
+  </script>
   <title>Foodzilla Fast Food | Nagaur's Best Sizzling Fast Food</title>
   
   <!-- ================= GOOGLE SEARCH REVIEW SCHEMA (RICH SNIPPETS) ================= -->
